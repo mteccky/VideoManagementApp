@@ -1,0 +1,15 @@
+﻿@model VideoManagementApp.Models.ErrorViewModel
+
+<h1 class="text-danger">Oops! Something went wrong.</h1>
+<p class="text-danger">An error occurred while processing your request.</p>
+
+@if (Model.ShowRequestId)
+{
+    <p>
+        <strong>Request ID:</strong> <code>@Model.RequestId</code>
+    </p>
+}
+
+<p>
+    Please try again later or contact support if the problem persists.
+</p>

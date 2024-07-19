@@ -1,0 +1,54 @@
+﻿@model List<VideoManagementApp.Models.VideoFile>
+
+<div id="catalogue-section" class="my-4">
+    <div class="bg-primary text-white p-3 rounded mb-4">
+        <h4>
+            @if (!Model.Any())
+            {
+                <span>The catalogue is empty. Use the upload form to add videos.</span>
+            }
+            else
+            {
+                <span>Select a video from the table to start playback</span>
+            }
+        </h4>
+    </div>
+    @if (Model.Any())
+    {
+        <video id="videoPlayer" class="w-100 mb-4" controls></video>
+        <table class="table table-hover table-dark">
+            <thead>
+                <tr>
+                    <th>File Name</th>
+                    <th>File Size (KB)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var file in Model)
+                {
+                    <tr style="cursor:pointer;" onclick="playVideo('@file.FileName')">
+                        <td>@file.FileName</td>
+                        <td>@file.FileSizeInKB</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+<div id="upload-section" class="my-4" style="display:none;">
+    <div id="errorBox" class="alert alert-danger" style="display:none;"></div>
+    <div class="bg-primary text-white p-3 rounded mb-4">
+        <h4>Choose MP4 files to upload to the Video Catalogue</h4>
+    </div>    
+    <form id="uploadForm" enctype="multipart/form-data">
+        <div class="form-group">
+            <input type="file" id="files" name="files" class="form-control-file" multiple accept=".mp4" />
+        </div>
+        <button type="button" class="btn btn-primary" onclick="uploadFiles()">Upload</button>
+    </form>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script src="~/js/site.js"></script>
+}
